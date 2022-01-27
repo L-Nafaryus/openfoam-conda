@@ -1,0 +1,72 @@
+{% set name = "openfoam" %}
+{% set version = "9" %} 
+{% set tag = "20211122" %}
+
+package:
+  name: {{ name }}
+  version: {{ version }}.{{ tag }}
+
+source:
+  url: https://github.com/OpenFOAM/OpenFOAM-{{ version }}/archive/refs/tags/{{ tag }}.tar.gz
+  folder: OpenFOAM-{{ version }}
+#  - url: https://github.com/OpenFOAM/ThirdParty-{{ version }}/archive/refs/tags/version-{{ version }}.tar.gz 
+#    folder: ThirdParty-{{ version }}
+
+build:
+  number: 0
+  skip: true  # [py27]
+
+requirements:
+  build:
+    - {{ compiler('cxx') }}
+    - {{ compiler('c') }}
+    - {{ cdt('mesa-libgl-devel') }}
+    - make 
+    - openmpi
+    - flex
+    - bison
+    - boost
+    - curl
+    - git
+    - zlib
+    - parmetis
+    - scotch
+    - ptscotch
+    - cgal
+  host:
+    - openmpi
+    - flex
+    - bison
+    - boost
+    - curl
+    - git
+    - zlib
+    - parmetis
+    - scotch
+    - ptscotch
+    - cgal
+  run:
+    - parmetis
+    - scotch
+    - ptscotch
+    - boost
+    - flex
+    - cgal
+    - openmpi
+
+# TODO: add test
+#test:
+#  commands:
+
+about:
+  home: https://openfoam.org/
+  license: GPL3
+  license_family: GPL
+  summary: OpenFOAM-{{ version }} 
+  description: OpenFOAM is a free, open source computational fluid dynamics (CFD) software package released by the OpenFOAM Foundation.
+  doc_url: https://openfoam.org/resources/
+  dev_url: https://github.com/OpenFOAM/OpenFOAM-9
+
+extra:
+  recipe-maintainers:
+    - L-Nafaryus 
